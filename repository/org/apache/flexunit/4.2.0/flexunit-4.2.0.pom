@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.apache.flex</groupId>
+  <groupId>org.apache</groupId>
   <artifactId>flexunit</artifactId>
-  <packaging>swc</packaging>
+  <packaging>zip</packaging>
   <version>4.2.0</version>
   <repositories>
     <repository>
@@ -11,12 +11,4 @@
       <url>https://raw.github.com/CrazyFlasher/maven-repo/master</url>
     </repository>
   </repositories>
-  <!--<dependencies>-->
-    <!--<dependency>-->
-      <!--<groupId>com.gamua</groupId>-->
-      <!--<artifactId>starling-framework</artifactId>-->
-      <!--<version>2.1</version>-->
-      <!--<type>swc</type>-->
-    <!--</dependency>-->
-  <!--</dependencies>-->
 </project>

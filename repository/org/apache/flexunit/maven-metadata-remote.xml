@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-  <groupId>org.apache.flex</groupId>
+  <groupId>org.apache</groupId>
   <artifactId>flexunit</artifactId>
   <version>4.2.0</version>
   <versioning>
     <versions>
       <version>4.2.0</version>
     </versions>
-    <lastUpdated>20161022193359</lastUpdated>
+    <lastUpdated>20161023105209</lastUpdated>
   </versioning>
 </metadata>
