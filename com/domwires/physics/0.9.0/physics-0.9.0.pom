@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.domwires</groupId>
-  <artifactId>starlingApp</artifactId>
+  <artifactId>physics</artifactId>
   <packaging>swc</packaging>
   <version>0.9.0</version>
   <repositories>
@@ -19,9 +19,15 @@
       <type>swc</type>
     </dependency>
     <dependency>
-      <groupId>com.gamua</groupId>
-      <artifactId>starling</artifactId>
-      <version>2.1.0</version>
+      <groupId>com.napephys</groupId>
+      <artifactId>nape-release</artifactId>
+      <version>1.0.0</version>
+      <type>swc</type>
+    </dependency>
+    <dependency>
+      <groupId>com.napephys</groupId>
+      <artifactId>nape-hacks</artifactId>
+      <version>1.0.0</version>
       <type>swc</type>
     </dependency>
   </dependencies>

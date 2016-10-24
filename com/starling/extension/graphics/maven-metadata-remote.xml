@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-  <groupId>com.napephys</groupId>
-  <artifactId>nape-release</artifactId>
+  <groupId>com.starling.extension</groupId>
+  <artifactId>graphics</artifactId>
   <version>1.0.0</version>
   <versioning>
     <versions>
       <version>1.0.0</version>
     </versions>
-    <lastUpdated>20161024053001</lastUpdated>
+    <lastUpdated>20161024053026</lastUpdated>
   </versioning>
 </metadata>

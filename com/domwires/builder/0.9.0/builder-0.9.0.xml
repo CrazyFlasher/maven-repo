@@ -35,6 +35,10 @@
         <asdoc output="${doc}" dir="${FLEX_HOME}/frameworks" lenient="true" failonerror="true">
             <doc-sources path-element="${src}"/>
             <external-library-path dir="${dependencies_path}" includes="**/*.swc"/>
+            <external-library-path dir="${dependencies_path}" includes="**/*.ane"/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs/player/${target-player}" includes="**/*.swc"/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs/air" includes="**/*.swc"/>
+            <define name="CONFIG::debug" value="true" />
         </asdoc>
         <zip destfile="${swc}/${swc_name}" update="true">
             <zipfileset dir="${doc}" prefix="docs">
@@ -50,6 +54,7 @@
             <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
             <include-sources dir="${src}" includes="*"/>
             <external-library-path dir="${dependencies_path}" includes="**/*"/>
+            <external-library-path dir="${dependencies_path}" includes="**/*.ane"/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs/player/${target-player}" includes="*"/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs/air" includes="*"/>
         </compc>

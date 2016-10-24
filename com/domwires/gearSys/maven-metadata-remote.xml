@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
   <groupId>com.domwires</groupId>
-  <artifactId>core</artifactId>
+  <artifactId>gearSys</artifactId>
   <version>0.9.0</version>
   <versioning>
     <versions>
       <version>0.9.0</version>
     </versions>
-    <lastUpdated>20161024052727</lastUpdated>
+    <lastUpdated>20161024052755</lastUpdated>
   </versioning>
 </metadata>
