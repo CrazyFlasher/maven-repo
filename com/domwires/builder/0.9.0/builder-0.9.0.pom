@@ -11,4 +11,12 @@
       <url>https://raw.github.com/CrazyFlasher/maven-repo/master</url>
     </repository>
   </repositories>
+  <dependencies>
+    <dependency>
+      <groupId>com.crazyfm.tools</groupId>
+      <artifactId>flashDep</artifactId>
+      <version>0.1.0</version>
+      <type>jar</type>
+    </dependency>
+  </dependencies>
 </project>
