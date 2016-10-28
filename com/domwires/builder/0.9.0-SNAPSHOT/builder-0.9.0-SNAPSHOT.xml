@@ -5,14 +5,11 @@
 	<property name="FLEX_HOME" location="${env.FLEX_HOME}"/>
 	<property name="FLASH_PLAYER_EXE" location="${env.FLASH_PLAYER_EXE}"/>
 	<property name="FLASH_IDE_EXE" location="${env.FLASH_IDE_EXE}"/>
-    <property name="version" value="0.9.0"/>
+    <property name="flexunit.version" value="4.2.0"/>
 
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
 
     <property name="flashDep" value="${user.home}/.m2/repository/com/crazyfm/tools/flashDep/0.1.0/flashDep-0.1.0.jar"/>
-
-    <dirname property="imported.basedir" file="${user.home}/.m2/repository/com/domwires/builder/${version}"/>
-    <!--<property file="${imported.basedir}/server.properties"/>-->
 
     <property name="sftp-path-suffix" value=""/>
     <property name="src" value="${basedir}/src"/>
@@ -23,7 +20,6 @@
     <property name="swf" value="${out}/swf"/>
     <property name="debug" value="false"/>
     <property name="pom" value="pom.xml"/>
-    <property name="flexunit.version" value="4.2.0"/>
     <!--<property name="maven.deploy.repo" value="https://raw.github.com/CrazyFlasher/maven-repo/master"/>-->
 
     <property name="flexunit" location="${user.home}/.m2/repository/org/apache/flexunit/${flexunit.version}"/>
@@ -95,11 +91,10 @@
         <fail if="flexunit.failure" message="Unit test(s) failed. See reports!"/>
     </target>
     <target name="check-flexunit">
-        <available file="${flexunit}/flexunit-${flexunit.version}.zip" property="flexunit.present"/>
+        <available file="${flexunit}/flexUnitTasks-${flexunit.version}-20140410.jar" property="flexunit.present"/>
     </target>
-    <target name="prepare-flexunit" depends="check-flexunit" if="flexunit.present">
+    <target name="prepare-flexunit" depends="check-flexunit" unless="flexunit.present">
         <unzip src="${flexunit}/flexunit-${flexunit.version}.zip" dest="${flexunit}"/>
-        <delete file="${flexunit}/flexunit-${flexunit.version}.zip"/>
         <taskdef resource="flexUnitTasks.tasks" classpath="${flexunit}/flexUnitTasks-${flexunit.version}-20140410.jar"/>
     </target>
     <target name="prepare" depends="-init-ooo">
