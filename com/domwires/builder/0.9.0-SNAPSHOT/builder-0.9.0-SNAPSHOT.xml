@@ -5,6 +5,8 @@
 	<property name="FLEX_HOME" location="${env.FLEX_HOME}"/>
 	<property name="FLASH_PLAYER_EXE" location="${env.FLASH_PLAYER_EXE}"/>
 	<property name="FLASH_IDE_EXE" location="${env.FLASH_IDE_EXE}"/>
+    <property name="compc.jar" value="${FLEX_HOME}/lib/compc.jar"/>
+
     <property name="flexunit.version" value="4.2.0"/>
 
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
@@ -45,11 +47,16 @@
         <delete dir="${doc}"/>
     </target>
     <target name="swc" depends="build_dep_paths">
+        <!--<dirset id="sources" dir="${src}">-->
+            <!--<include name="**/*" />-->
+        <!--</dirset>-->
+        <!--<pathconvert property="classes" pathsep="," refid="sources"/>-->
         <java jar="${FLEX_HOME}/lib/compc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
+            <arg value="-source-path=${src}"/>
+            <arg value="-include-sources=${src}"/>
             <arg value="-output=${swc}/${swc_name}"/>
-            <arg value="-include-sources+=${src}"/>
             <arg value="-external-library-path+=${FLEX_HOME}/frameworks/libs/air,${FLEX_HOME}/frameworks/libs/air,${dependencies}"/>
-            <arg value="-debug=${debug}"/>
+            <!--<arg value="-debug=${debug}"/>-->
             <arg value="-define=CONFIG::debug,${debug}"/>
         </java>
     </target>
