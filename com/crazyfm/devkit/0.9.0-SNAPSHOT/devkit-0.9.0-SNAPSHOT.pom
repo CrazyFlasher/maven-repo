@@ -4,7 +4,7 @@
   <groupId>com.crazyfm</groupId>
   <artifactId>devkit</artifactId>
   <packaging>swc</packaging>
-  <version>0.9.0</version>
+  <version>0.9.0-SNAPSHOT</version>
   <repositories>
     <repository>
       <id>CrazyFlasher</id>
@@ -15,19 +15,19 @@
     <dependency>
       <groupId>com.domwires</groupId>
       <artifactId>physics</artifactId>
-      <version>0.9.0</version>
+      <version>0.9.0-SNAPSHOT</version>
       <type>swc</type>
     </dependency>
     <dependency>
       <groupId>com.domwires</groupId>
       <artifactId>gearSys</artifactId>
-      <version>0.9.0</version>
+      <version>0.9.0-SNAPSHOT</version>
       <type>swc</type>
     </dependency>
     <dependency>
       <groupId>com.domwires</groupId>
       <artifactId>starlingApp</artifactId>
-      <version>0.9.0</version>
+      <version>0.9.0-SNAPSHOT</version>
       <type>swc</type>
     </dependency>
     <dependency>
