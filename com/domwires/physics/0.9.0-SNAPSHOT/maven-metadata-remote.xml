@@ -2,12 +2,11 @@
 <metadata>
   <groupId>com.domwires</groupId>
   <artifactId>physics</artifactId>
-  <version>0.9.0</version>
+  <version>0.9.0-SNAPSHOT</version>
   <versioning>
-    <versions>
-      <version>0.9.0</version>
-      <version>0.9.0-SNAPSHOT</version>
-    </versions>
+    <snapshot>
+      <buildNumber>1</buildNumber>
+    </snapshot>
     <lastUpdated>20161031063307</lastUpdated>
   </versioning>
 </metadata>
