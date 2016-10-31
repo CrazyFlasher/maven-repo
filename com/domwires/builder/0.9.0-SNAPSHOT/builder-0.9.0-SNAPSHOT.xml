@@ -47,17 +47,16 @@
         <delete dir="${doc}"/>
     </target>
     <target name="swc" depends="build_dep_paths">
-        <fileset id="sources" dir="${src}">
-            <include name="**/*.as" />
-        </fileset>
-        <pathconvert property="classes" pathsep="," refid="sources"/>
+        <!--<dirset id="sources" dir="${src}">-->
+            <!--<include name="**/*" />-->
+        <!--</dirset>-->
+        <!--<pathconvert property="classes" pathsep="," refid="sources"/>-->
         <java jar="${FLEX_HOME}/lib/compc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
-            <!--TODO: include sources-->
-            <arg value="-output=${swc}/${swc_name}"/>
             <arg value="-source-path=${src}"/>
-            <arg value="-include-sources+=${classes}"/>
+            <arg value="-include-sources=${src}"/>
+            <arg value="-output=${swc}/${swc_name}"/>
             <arg value="-external-library-path+=${FLEX_HOME}/frameworks/libs/air,${FLEX_HOME}/frameworks/libs/air,${dependencies}"/>
-            <arg value="-debug=${debug}"/>
+            <!--<arg value="-debug=${debug}"/>-->
             <arg value="-define=CONFIG::debug,${debug}"/>
         </java>
     </target>

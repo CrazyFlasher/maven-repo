@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-  <groupId>com.domwires</groupId>
-  <artifactId>builder</artifactId>
+  <groupId>com.crazyfm</groupId>
+  <artifactId>devkit</artifactId>
   <version>0.9.0-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <buildNumber>29</buildNumber>
+      <buildNumber>2</buildNumber>
     </snapshot>
-    <lastUpdated>20161029143308</lastUpdated>
+    <lastUpdated>20161029144138</lastUpdated>
   </versioning>
 </metadata>
