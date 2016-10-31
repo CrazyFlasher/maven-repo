@@ -60,5 +60,35 @@
       <version>1.0.0</version>
       <type>swc</type>
     </dependency>
+    <dependency>
+      <groupId>com.appodeal</groupId>
+      <artifactId>appodeal</artifactId>
+      <version>1.0.0</version>
+      <type>ane</type>
+    </dependency>
+    <dependency>
+      <groupId>com.appodeal</groupId>
+      <artifactId>appodeal-play-services</artifactId>
+      <version>8.1.0</version>
+      <type>ane</type>
+    </dependency>
+    <dependency>
+      <groupId>com.appodeal</groupId>
+      <artifactId>appodeal-support-lib</artifactId>
+      <version>23.1.2</version>
+      <type>ane</type>
+    </dependency>
+    <dependency>
+      <groupId>com.google</groupId>
+      <artifactId>game-services</artifactId>
+      <version>1.0.0</version>
+      <type>ane</type>
+    </dependency>
+    <dependency>
+      <groupId>com.google</groupId>
+      <artifactId>play-services</artifactId>
+      <version>1.0.0</version>
+      <type>ane</type>
+    </dependency>
   </dependencies>
 </project>
