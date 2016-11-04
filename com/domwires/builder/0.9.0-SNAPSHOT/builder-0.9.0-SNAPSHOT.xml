@@ -13,8 +13,9 @@
 
     <property name="flashDep" value="${user.home}/.m2/repository/com/crazyfm/tools/flashDep/0.1.0/flashDep-0.1.0.jar"/>
 
-    <property name="sftp-path-suffix" value=""/>
+    <!--<property name="sftp-path-suffix" value=""/>-->
     <property name="src" value="${basedir}/src"/>
+    <property name="main_class" value="${src}/StartUp.as"/>
     <property name="out" value="${basedir}/out"/>
     <property name="deploy.dir" location="dist"/>
     <property name="doc" value="${out}/doc"/>
@@ -22,6 +23,7 @@
     <property name="swf" value="${out}/swf"/>
     <property name="debug" value="false"/>
     <property name="pom" value="pom.xml"/>
+    <property name="local_dependencies" value=""/>
     <!--<property name="maven.deploy.repo" value="https://raw.github.com/CrazyFlasher/maven-repo/master"/>-->
 
     <property name="flexunit" location="${user.home}/.m2/repository/org/apache/flexunit/${flexunit.version}"/>
@@ -34,7 +36,8 @@
         <java jar="${FLEX_HOME}/lib/asdoc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
             <arg value="-doc-sources=${src}"/>
             <arg value="-output=${doc}"/>
-            <arg value="-external-library-path+=${FLEX_HOME}/frameworks/libs/air,${FLEX_HOME}/frameworks/libs/air,${dependencies}"/>
+            <!--${FLEX_HOME}/frameworks/libs/player/20.0"-->
+            <arg value="-external-library-path+=${FLEX_HOME}/frameworks/libs/air,${dependencies}"/>
             <arg value="-define=CONFIG::debug,true"/>
         </java>
         <zip destfile="${swc}/${swc_name}" update="true">
@@ -45,6 +48,18 @@
             </zipfileset>
         </zip>
         <delete dir="${doc}"/>
+    </target>
+    <target name="swf" depends="build_dep_paths">
+        <java jar="${FLEX_HOME}/lib/mxmlc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
+            <arg value="${main_class}"/>
+            <arg value="-source-path+=${src}"/>
+            <arg value="-swf-version=${swf-version}"/>
+            <arg value="-library-path+=${dependencies},${local_dependencies}"/>
+            <arg value="-output=${out}/${swf_name}"/>
+            <arg value="-keep-as3-metadata+=Autowired"/>
+            <arg value="-keep-as3-metadata+=PostConstruct"/>
+            <arg value="-debug=${debug}"/>
+        </java>
     </target>
     <target name="swc" depends="build_dep_paths">
         <!--<dirset id="sources" dir="${src}">-->
