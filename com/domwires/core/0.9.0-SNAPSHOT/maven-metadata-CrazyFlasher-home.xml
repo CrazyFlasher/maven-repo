@@ -3,10 +3,4 @@
   <groupId>com.domwires</groupId>
   <artifactId>core</artifactId>
   <version>0.9.0-SNAPSHOT</version>
-  <versioning>
-    <snapshot>
-      <buildNumber>3</buildNumber>
-    </snapshot>
-    <lastUpdated>20161107062200</lastUpdated>
-  </versioning>
 </metadata>

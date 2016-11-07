@@ -58,6 +58,7 @@
             <arg value="-output=${out}/${swf_name}"/>
             <arg value="-keep-as3-metadata+=Autowired"/>
             <arg value="-keep-as3-metadata+=PostConstruct"/>
+            <arg value="-keep-as3-metadata+=PostInject"/>
             <arg value="-debug=${debug}"/>
         </java>
     </target>
@@ -92,6 +93,7 @@
             <arg value="-output=${out}/tests/TestRunner.swf"/>
             <arg value="-keep-as3-metadata+=Autowired"/>
             <arg value="-keep-as3-metadata+=PostConstruct"/>
+            <arg value="-keep-as3-metadata+=PostInject"/>
             <arg value="-debug=false"/>
         </java>
         <flexunit
