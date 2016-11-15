@@ -90,5 +90,11 @@
       <version>1.0.0</version>
       <type>ane</type>
     </dependency>
+    <dependency>
+      <groupId>com.milkman</groupId>
+      <artifactId>androidIAB</artifactId>
+      <version>2.7.1</version>
+      <type>ane</type>
+    </dependency>
   </dependencies>
 </project>
