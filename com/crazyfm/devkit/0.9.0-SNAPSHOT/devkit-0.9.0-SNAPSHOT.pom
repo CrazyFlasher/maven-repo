@@ -9,6 +9,10 @@
     <repository>
       <id>CrazyFlasher</id>
       <url>https://raw.github.com/CrazyFlasher/maven-repo/master</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>interval:120</updatePolicy>
+      </snapshots>
     </repository>
   </repositories>
   <dependencies>
@@ -94,6 +98,54 @@
       <groupId>com.milkman</groupId>
       <artifactId>androidIAB</artifactId>
       <version>2.7.1</version>
+      <type>ane</type>
+    </dependency>
+    <dependency>
+      <groupId>com.heyzap</groupId>
+      <artifactId>HeyzapAds</artifactId>
+      <version>10.2.0</version>
+      <type>ane</type>
+    </dependency>
+    <dependency>
+      <groupId>com.fyber</groupId>
+      <artifactId>fyber-android-unityads</artifactId>
+      <version>8.5.0</version>
+      <type>ane</type>
+    </dependency>
+    <dependency>
+      <groupId>com.fyber</groupId>
+      <artifactId>fyber-ios-unityads</artifactId>
+      <version>8.5.0</version>
+      <type>ane</type>
+    </dependency>
+    <dependency>
+      <groupId>com.fyber</groupId>
+      <artifactId>fyber-ios-admob</artifactId>
+      <version>8.4.0</version>
+      <type>ane</type>
+    </dependency>
+    <dependency>
+      <groupId>com.fyber</groupId>
+      <artifactId>fyber-android-admob</artifactId>
+      <version>8.5.0</version>
+      <type>ane</type>
+    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>com.fyber</groupId>-->
+      <!--<artifactId>fyber-ios-sdk</artifactId>-->
+      <!--<version>1.1.4</version>-->
+      <!--<type>ane</type>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>com.fyber</groupId>-->
+      <!--<artifactId>fyber-android-sdk</artifactId>-->
+      <!--<version>1.1.4</version>-->
+      <!--<type>ane</type>-->
+    <!--</dependency>-->
+    <dependency>
+      <groupId>com.fyber</groupId>
+      <artifactId>play-services</artifactId>
+      <version>8.3.0</version>
       <type>ane</type>
     </dependency>
   </dependencies>
