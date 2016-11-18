@@ -42,12 +42,12 @@
         </java>
         <zip destfile="${swc}/${swc_name}" update="true">
             <zipfileset dir="${doc}" prefix="docs">
-                <include name="*.*"/>
+                <!--<include name="*.*"/>-->
                 <exclude name="ASDoc_Config.xml"/>
                 <exclude name="overviews.xml"/>
             </zipfileset>
         </zip>
-        <delete dir="${doc}"/>
+        <!--<delete dir="${doc}"/>-->
     </target>
     <target name="swf" depends="build_dep_paths">
         <java jar="${FLEX_HOME}/lib/mxmlc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
