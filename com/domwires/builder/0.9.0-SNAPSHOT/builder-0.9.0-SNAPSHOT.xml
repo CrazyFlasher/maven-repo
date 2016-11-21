@@ -42,7 +42,7 @@
         </java>
         <zip destfile="${swc}/${swc_name}" update="true">
             <zipfileset dir="${doc}" prefix="docs">
-                <!--<include name="*.*"/>-->
+                <include name="*.*"/>
                 <exclude name="ASDoc_Config.xml"/>
                 <exclude name="overviews.xml"/>
             </zipfileset>
