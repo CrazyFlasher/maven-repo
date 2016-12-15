@@ -42,7 +42,7 @@
         </java>
         <zip destfile="${swc}/${swc_name}" update="true">
             <zipfileset dir="${doc}" prefix="docs">
-                <include name="*.*"/>
+                <!--<include name="*.*"/>-->
                 <exclude name="ASDoc_Config.xml"/>
                 <exclude name="overviews.xml"/>
             </zipfileset>
@@ -51,11 +51,12 @@
     </target>
     <target name="swf" depends="build_dep_paths">
         <java jar="${FLEX_HOME}/lib/mxmlc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
-            <arg value="${main_class}"/>
+            <arg value="${src}/StartUp.as"/>
             <arg value="-source-path+=${src}"/>
             <arg value="-swf-version=${swf-version}"/>
             <arg value="-library-path+=${dependencies},${local_dependencies}"/>
             <arg value="-output=${out}/${swf_name}"/>
+            <arg value="-frame=two,${main_class}"/>
             <arg value="-keep-as3-metadata+=Autowired"/>
             <arg value="-keep-as3-metadata+=PostConstruct"/>
             <arg value="-keep-as3-metadata+=PostInject"/>
