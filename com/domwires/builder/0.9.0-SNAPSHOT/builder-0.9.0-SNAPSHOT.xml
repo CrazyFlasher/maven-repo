@@ -30,7 +30,7 @@
 
     <taskdef resource="flexUnitTasks.tasks" classpath="${flexunit}/flexUnitTasks-${flexunit.version}-20140410.jar"/>
 
-    <target name="package_swc" depends="clean,swc,test,asdoc,maven-deploy"/>
+    <target name="package_swc" depends="clean,swc,test,asdoc,maven-install"/>
     <target name="asdoc" depends="build_dep_paths">
         <delete dir="${doc}"/>
         <java jar="${FLEX_HOME}/lib/asdoc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
@@ -42,7 +42,7 @@
         </java>
         <zip destfile="${swc}/${swc_name}" update="true">
             <zipfileset dir="${doc}" prefix="docs">
-                <!--<include name="*.*"/>-->
+                <include name="*.*"/>
                 <exclude name="ASDoc_Config.xml"/>
                 <exclude name="overviews.xml"/>
             </zipfileset>
@@ -51,12 +51,11 @@
     </target>
     <target name="swf" depends="build_dep_paths">
         <java jar="${FLEX_HOME}/lib/mxmlc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
-            <arg value="${src}/StartUp.as"/>
+            <arg value="${main_class}"/>
             <arg value="-source-path+=${src}"/>
             <arg value="-swf-version=${swf-version}"/>
             <arg value="-library-path+=${dependencies},${local_dependencies}"/>
             <arg value="-output=${out}/${swf_name}"/>
-            <arg value="-frame=two,${main_class}"/>
             <arg value="-keep-as3-metadata+=Autowired"/>
             <arg value="-keep-as3-metadata+=PostConstruct"/>
             <arg value="-keep-as3-metadata+=PostInject"/>
@@ -174,6 +173,8 @@
         ant -Dmaven.deploy.repo=file:///path/to/local/repo maven-deploy -->
     <target name="maven-deploy" depends="prepare">
         <mavendeploy file="${swc}/${swc_name}" pom="${pom}"/>
-        <!--<maveninstall file="${swc}/${swc_name}" pom="${pom}"/>-->
+    </target>
+    <target name="maven-install" depends="prepare">
+        <maveninstall file="${swc}/${swc_name}" pom="${pom}"/>
     </target>
 </project>
