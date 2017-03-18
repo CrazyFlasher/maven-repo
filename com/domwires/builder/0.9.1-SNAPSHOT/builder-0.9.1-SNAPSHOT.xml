@@ -72,7 +72,7 @@
     </target>
     <target name="unpack-flex-sdk" depends="check-flex-sdk-folder" unless="flex_sdk_folder.present">
         <unzip src="${flex_sdk_path}/flex.zip" dest="${flex_home}"/>
-        <echo file="${flex_home}/env.properties" append="false">env.PLAYERGLOBAL_HOME=libs/player</echo>
+        <echo file="${flex_home}/env.properties" append="false">env.PLAYERGLOBAL_HOME=libs/player${line.separator}</echo>
         <echo file="${flex_home}/env.properties" append="true">env.AIR_HOME=${flex_home}</echo>
         <replace file="${flex_home}/env.properties" token="\" value="/"/>
     </target>
