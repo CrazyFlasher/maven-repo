@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <project name="domwires-builder" basedir="" default="package_swc">
 
-	<property environment="env."/>
-	<property name="FLASH_PLAYER_EXE" location="${env.FLASH_PLAYER_EXE}"/>
-	<property name="FLASH_IDE_EXE" location="${env.FLASH_IDE_EXE}"/>
+    <property environment="env."/>
+    <property name="FLASH_PLAYER_EXE" location="${env.FLASH_PLAYER_EXE}"/>
+    <property name="FLASH_IDE_EXE" location="${env.FLASH_IDE_EXE}"/>
     <!--<property name="compc.jar" value="${FLEX_HOME}/lib/compc.jar"/>-->
 
     <property name="flexunit.version" value="4.2.0"/>
@@ -21,6 +21,7 @@
     <property name="debug" value="false"/>
     <property name="pom" value="pom.xml"/>
     <property name="local_dependencies" value=""/>
+    <property name="flex_sdk_optionals_url" value="https://raw.github.com/CrazyFlasher/maven-repo/master/flex-sdk-4.16.0"/>
     <property name="flex_sdk_url" value="http://www-us.apache.org/dist/flex/4.16.0/binaries/apache-flex-sdk-4.16.0-bin.zip"/>
     <property name="flex_sdk_path" location="${user.home}/.m2/repository/org/apache"/>
     <property name="flex_home" location="${user.home}/.m2/repository/org/apache/flex-sdk-4.16.0"/>
@@ -52,14 +53,11 @@
         <antcall target="resolve-air_sdk"/>
     </target>
     <target name="resolve-air_sdk" depends="download-air-sdk,unpack-air-sdk"/>
-    <target name="download-air-sdk" depends="check-air-sdk-zip" unless="air_sdk_zip.present">
-        <get src="${air_sdk_url}" dest="${air_sdk_path}/air.zip"/>
+    <target name="download-air-sdk">
+        <get src="${air_sdk_url}" dest="${air_sdk_path}/air.zip" skipexisting="true"/>
     </target>
     <target name="unpack-air-sdk" depends="check-air-sdk-folder" unless="air_sdk_folder.present">
         <unzip src="${air_sdk_path}/air.zip" dest="${air_home}"/>
-    </target>
-    <target name="check-air-sdk-zip">
-        <available file="${air_sdk_path}/air.zip" property="air_sdk_zip.present"/>
     </target>
     <target name="check-air-sdk-folder">
         <available file="${air_home}" type="dir" property="air_sdk_folder.present"/>
@@ -68,19 +66,62 @@
     <target name="prepare-flex_sdk" depends="check-flex-sdk-folder" unless="flex_sdk_folder.present">
         <antcall target="resolve-flex_sdk"/>
     </target>
-    <target name="resolve-flex_sdk" depends="download-flex-sdk,unpack-flex-sdk"/>
-    <target name="download-flex-sdk" depends="check-flex-sdk-zip" unless="flex_sdk_zip.present">
-        <get src="${flex_sdk_url}" dest="${flex_sdk_path}/flex.zip"/>
+    <target name="resolve-flex_sdk" depends="download-flex-sdk,unpack-flex-sdk,download-sdk-optionals"/>
+    <target name="download-flex-sdk">
+        <get src="${flex_sdk_url}" dest="${flex_sdk_path}/flex.zip" skipexisting="true"/>
     </target>
     <target name="unpack-flex-sdk" depends="check-flex-sdk-folder" unless="flex_sdk_folder.present">
         <unzip src="${flex_sdk_path}/flex.zip" dest="${flex_home}"/>
         <echo file="${flex_home}/env.properties" append="false">env.PLAYERGLOBAL_HOME=libs/player</echo>
-    </target>
-    <target name="check-flex-sdk-zip">
-        <available file="${flex_sdk_path}/flex.zip" property="flex_sdk_zip.present"/>
+        <echo file="${flex_home}/env.properties" append="false">env.AIR_HOME=${flex_home}</echo>
     </target>
     <target name="check-flex-sdk-folder">
         <available file="${flex_home}" type="dir" property="flex_sdk_folder.present"/>
+    </target>
+
+    <target name="download-sdk-optionals">
+        <mkdir dir="${flex_home}/lib/external/optional"/>
+        <antcall target="download-osmf"/>
+        <antcall target="download-afe"/>
+        <antcall target="download-aglj40"/>
+        <antcall target="download-flex-fontkit"/>
+        <antcall target="download-rideau"/>
+    </target>
+
+    <target name="download-osmf">
+        <get
+                src="${flex_sdk_optionals_url}/frameworks/libs/osmf.swc"
+                dest="${flex_home}/frameworks/libs/osmf.swc"
+                skipexisting="true"
+        />
+    </target>
+    <target name="download-afe">
+        <get
+                src="${flex_sdk_optionals_url}/lib/external/optional/afe.jar"
+                dest="${flex_home}/lib/external/optional/afe.jar"
+                skipexisting="true"
+        />
+    </target>
+    <target name="download-aglj40">
+        <get
+                src="${flex_sdk_optionals_url}/lib/external/optional/aglj40.jar"
+                dest="${flex_home}/lib/external/optional/aglj40.jar"
+                skipexisting="true"
+        />
+    </target>
+    <target name="download-flex-fontkit">
+        <get
+                src="${flex_sdk_optionals_url}/lib/external/optional/flex-fontkit.jar"
+                dest="${flex_home}/lib/external/optional/flex-fontkit.jar"
+                skipexisting="true"
+        />
+    </target>
+    <target name="download-rideau">
+        <get
+                src="${flex_sdk_optionals_url}/lib/external/optional/rideau.jar"
+                dest="${flex_home}/lib/external/optional/rideau.jar"
+                skipexisting="true"
+        />
     </target>
 
     <taskdef resource="flexTasks.tasks" classpath="${flex_home}/ant/lib/flexTasks.jar"/>
@@ -120,7 +161,7 @@
     </target>
     <target name="swc" depends="prepare-sdk,build_dep_paths">
         <!--<dirset id="sources" dir="${src}">-->
-            <!--<include name="**/*" />-->
+        <!--<include name="**/*" />-->
         <!--</dirset>-->
         <!--<pathconvert property="classes" pathsep="," refid="sources"/>-->
         <java jar="${flex_home}/lib/compc.jar" dir="${flex_home}/frameworks" fork="true" failonerror="true">
@@ -185,42 +226,42 @@
         <delete dir="${out}"/>
     </target>
     <!--<target name="increase_minor_version">-->
-        <!--<propertyfile file="version.properties">-->
-            <!--<entry key="build.minor.number" type="int" operation="+" value="1" pattern="0" />-->
-        <!--</propertyfile>-->
+    <!--<propertyfile file="version.properties">-->
+    <!--<entry key="build.minor.number" type="int" operation="+" value="1" pattern="0" />-->
+    <!--</propertyfile>-->
     <!--</target>-->
     <!--<target name="increase_major_version">-->
-        <!--<propertyfile file="version.properties">-->
-            <!--<entry key="build.major.number" type="int" operation="+" value="1" pattern="0" />-->
-            <!--<entry key="build.minor.number" type="int" operation="=" value="0" pattern="0" />-->
-        <!--</propertyfile>-->
+    <!--<propertyfile file="version.properties">-->
+    <!--<entry key="build.major.number" type="int" operation="+" value="1" pattern="0" />-->
+    <!--<entry key="build.minor.number" type="int" operation="=" value="0" pattern="0" />-->
+    <!--</propertyfile>-->
     <!--</target>-->
     <!--<target name="increase_release_version">-->
     <!--<propertyfile file="version.properties">-->
-        <!--<entry key="build.release.number" type="int" operation="+" value="1" pattern="0" />-->
-        <!--<entry key="build.major.number" type="int" operation="=" value="0" pattern="0" />-->
-        <!--<entry key="build.minor.number" type="int" operation="=" value="0" pattern="0" />-->
+    <!--<entry key="build.release.number" type="int" operation="+" value="1" pattern="0" />-->
+    <!--<entry key="build.major.number" type="int" operation="=" value="0" pattern="0" />-->
+    <!--<entry key="build.minor.number" type="int" operation="=" value="0" pattern="0" />-->
     <!--</propertyfile>-->
     <!--</target>-->
     <!--<target name="upload_docs">-->
-        <!--<sshexec host="${sftp-host}"-->
-                 <!--username="${sftp-login}"-->
-                 <!--password="${sftp-password}"-->
-                 <!--command="${sftp-script-path} ${sftp-path}/${sftp-path-suffix}/doc"-->
-                 <!--trust="true"-->
-        <!--/>-->
-        <!--<scp todir="${sftp-login}:${sftp-password}@${sftp-host}:${sftp-path}/${sftp-path-suffix}/doc" trust="true">-->
-            <!--<fileset dir="${doc}"/>-->
-        <!--</scp>-->
+    <!--<sshexec host="${sftp-host}"-->
+    <!--username="${sftp-login}"-->
+    <!--password="${sftp-password}"-->
+    <!--command="${sftp-script-path} ${sftp-path}/${sftp-path-suffix}/doc"-->
+    <!--trust="true"-->
+    <!--/>-->
+    <!--<scp todir="${sftp-login}:${sftp-password}@${sftp-host}:${sftp-path}/${sftp-path-suffix}/doc" trust="true">-->
+    <!--<fileset dir="${doc}"/>-->
+    <!--</scp>-->
     <!--</target>-->
     <!--<target name="upload_swc">-->
-        <!--<zip destfile="${swc}/${ant.project.name}_latest.zip"-->
-             <!--basedir="${swc}"-->
-             <!--includes="*.swc"-->
-        <!--/>-->
-        <!--<scp file="${swc}/${ant.project.name}_latest.zip" todir="${sftp-login}:${sftp-password}@${sftp-host}:${sftp-path}/${sftp-path-suffix}"-->
-             <!--trust="true"/>-->
-        <!--<delete file="${swc}/${ant.project.name}_latest.zip"/>-->
+    <!--<zip destfile="${swc}/${ant.project.name}_latest.zip"-->
+    <!--basedir="${swc}"-->
+    <!--includes="*.swc"-->
+    <!--/>-->
+    <!--<scp file="${swc}/${ant.project.name}_latest.zip" todir="${sftp-login}:${sftp-password}@${sftp-host}:${sftp-path}/${sftp-path-suffix}"-->
+    <!--trust="true"/>-->
+    <!--<delete file="${swc}/${ant.project.name}_latest.zip"/>-->
     <!--</target>-->
 
     <!--//////////////////////////////////////////////////////////////////////////////////////-->
