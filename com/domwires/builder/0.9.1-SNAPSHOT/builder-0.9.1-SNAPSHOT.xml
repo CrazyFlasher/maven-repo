@@ -54,10 +54,11 @@
     </target>
     <target name="resolve-air_sdk" depends="download-air-sdk,unpack-air-sdk"/>
     <target name="download-air-sdk">
-        <get src="${air_sdk_url}" dest="${air_sdk_path}/air.zip" skipexisting="true"/>
+        <get src="${air_sdk_url}" dest="${air_sdk_path}/air-${target-player}.zip" skipexisting="true"/>
     </target>
     <target name="unpack-air-sdk" depends="check-air-sdk-folder" unless="air_sdk_folder.present">
-        <unzip src="${air_sdk_path}/air.zip" dest="${air_home}"/>
+        <delete file="${flex_sdk_path}/merged"/>
+        <unzip src="${air_sdk_path}/air-${target-player}.zip" dest="${air_home}"/>
     </target>
     <target name="check-air-sdk-folder">
         <available file="${air_home}" type="dir" property="air_sdk_folder.present"/>
@@ -68,10 +69,10 @@
     </target>
     <target name="resolve-flex_sdk" depends="download-flex-sdk,unpack-flex-sdk,download-sdk-optionals"/>
     <target name="download-flex-sdk">
-        <get src="${flex_sdk_url}" dest="${flex_sdk_path}/flex.zip" skipexisting="true"/>
+        <get src="${flex_sdk_url}" dest="${flex_sdk_path}/flex-${target-player}.zip" skipexisting="true"/>
     </target>
     <target name="unpack-flex-sdk" depends="check-flex-sdk-folder" unless="flex_sdk_folder.present">
-        <unzip src="${flex_sdk_path}/flex.zip" dest="${flex_home}"/>
+        <unzip src="${flex_sdk_path}/flex-${target-player}.zip" dest="${flex_home}"/>
         <echo file="${flex_home}/env.properties" append="false">env.PLAYERGLOBAL_HOME=libs/player${line.separator}</echo>
         <echo file="${flex_home}/env.properties" append="true">env.AIR_HOME=${flex_home}</echo>
         <replace file="${flex_home}/env.properties" token="\" value="/"/>
