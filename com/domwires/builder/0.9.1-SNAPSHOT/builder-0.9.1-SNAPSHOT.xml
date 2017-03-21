@@ -36,7 +36,7 @@
         <taskdef resource="flexTasks.tasks" classpath="${flex_home}/ant/lib/flexTasks.jar"/>
     </target>
     <target name="merge-flex-air" depends="check-sdk-merged" unless="sdk-merged.present">
-        <copy todir="${flex_home}">
+        <copy todir="${flex_home}" overwrite="true">
             <fileset dir="${air_home}"/>
         </copy>
         <!--HACK-->
@@ -227,44 +227,6 @@
     <target name="clean">
         <delete dir="${out}"/>
     </target>
-    <!--<target name="increase_minor_version">-->
-    <!--<propertyfile file="version.properties">-->
-    <!--<entry key="build.minor.number" type="int" operation="+" value="1" pattern="0" />-->
-    <!--</propertyfile>-->
-    <!--</target>-->
-    <!--<target name="increase_major_version">-->
-    <!--<propertyfile file="version.properties">-->
-    <!--<entry key="build.major.number" type="int" operation="+" value="1" pattern="0" />-->
-    <!--<entry key="build.minor.number" type="int" operation="=" value="0" pattern="0" />-->
-    <!--</propertyfile>-->
-    <!--</target>-->
-    <!--<target name="increase_release_version">-->
-    <!--<propertyfile file="version.properties">-->
-    <!--<entry key="build.release.number" type="int" operation="+" value="1" pattern="0" />-->
-    <!--<entry key="build.major.number" type="int" operation="=" value="0" pattern="0" />-->
-    <!--<entry key="build.minor.number" type="int" operation="=" value="0" pattern="0" />-->
-    <!--</propertyfile>-->
-    <!--</target>-->
-    <!--<target name="upload_docs">-->
-    <!--<sshexec host="${sftp-host}"-->
-    <!--username="${sftp-login}"-->
-    <!--password="${sftp-password}"-->
-    <!--command="${sftp-script-path} ${sftp-path}/${sftp-path-suffix}/doc"-->
-    <!--trust="true"-->
-    <!--/>-->
-    <!--<scp todir="${sftp-login}:${sftp-password}@${sftp-host}:${sftp-path}/${sftp-path-suffix}/doc" trust="true">-->
-    <!--<fileset dir="${doc}"/>-->
-    <!--</scp>-->
-    <!--</target>-->
-    <!--<target name="upload_swc">-->
-    <!--<zip destfile="${swc}/${ant.project.name}_latest.zip"-->
-    <!--basedir="${swc}"-->
-    <!--includes="*.swc"-->
-    <!--/>-->
-    <!--<scp file="${swc}/${ant.project.name}_latest.zip" todir="${sftp-login}:${sftp-password}@${sftp-host}:${sftp-path}/${sftp-path-suffix}"-->
-    <!--trust="true"/>-->
-    <!--<delete file="${swc}/${ant.project.name}_latest.zip"/>-->
-    <!--</target>-->
 
     <!--//////////////////////////////////////////////////////////////////////////////////////-->
 
