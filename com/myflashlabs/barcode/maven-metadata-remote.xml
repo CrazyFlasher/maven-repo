@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.myflashlabs</groupId>
+  <artifactId>barcode</artifactId>
+  <version>3.3.0</version>
+  <versioning>
+    <versions>
+      <version>3.3.0</version>
+    </versions>
+    <lastUpdated>20170815131506</lastUpdated>
+  </versioning>
+</metadata>
