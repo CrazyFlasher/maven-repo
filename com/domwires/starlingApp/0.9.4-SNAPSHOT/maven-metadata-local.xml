@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.domwires</groupId>
+  <artifactId>starlingApp</artifactId>
+  <version>0.9.4-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <localCopy>true</localCopy>
+    </snapshot>
+    <lastUpdated>20171028082920</lastUpdated>
+  </versioning>
+</metadata>
