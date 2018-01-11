@@ -2,11 +2,11 @@
 <metadata>
   <groupId>com.domwires</groupId>
   <artifactId>starlingApp</artifactId>
-  <version>0.9.5-SNAPSHOT</version>
+  <version>0.9.6-SNAPSHOT</version>
   <versioning>
-    <versions>
-      <version>0.9.5-SNAPSHOT</version>
-    </versions>
-    <lastUpdated>20180110230804</lastUpdated>
+    <snapshot>
+      <localCopy>true</localCopy>
+    </snapshot>
+    <lastUpdated>20180111000031</lastUpdated>
   </versioning>
 </metadata>
