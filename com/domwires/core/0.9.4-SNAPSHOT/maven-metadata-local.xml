@@ -2,13 +2,11 @@
 <metadata>
   <groupId>com.domwires</groupId>
   <artifactId>core</artifactId>
-  <version>0.9.2-SNAPSHOT</version>
+  <version>0.9.4-SNAPSHOT</version>
   <versioning>
-    <versions>
-      <version>0.9.2-SNAPSHOT</version>
-      <version>0.9.3-SNAPSHOT</version>
-      <version>0.9.4-SNAPSHOT</version>
-    </versions>
+    <snapshot>
+      <localCopy>true</localCopy>
+    </snapshot>
     <lastUpdated>20180119195800</lastUpdated>
   </versioning>
 </metadata>
