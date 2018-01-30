@@ -4,9 +4,9 @@
   <artifactId>starlingApp</artifactId>
   <version>0.9.9-SNAPSHOT</version>
   <versioning>
-    <versions>
-      <version>0.9.9-SNAPSHOT</version>
-    </versions>
+    <snapshot>
+      <localCopy>true</localCopy>
+    </snapshot>
     <lastUpdated>20180130214727</lastUpdated>
   </versioning>
 </metadata>

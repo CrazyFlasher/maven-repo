@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.domwires</groupId>
+  <artifactId>core</artifactId>
+  <version>0.9.6-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <localCopy>true</localCopy>
+    </snapshot>
+    <lastUpdated>20180130214712</lastUpdated>
+  </versioning>
+</metadata>
