@@ -170,7 +170,8 @@
             <arg value="-source-path=${src}"/>
             <arg value="-include-sources=${src}"/>
             <arg value="-output=${swc}/${swc_name}"/>
-            <arg value="-external-library-path+=${flex_home}/frameworks/libs/air,${flex_home}/frameworks/libs/air,${dependencies}"/>
+            <arg
+                    value="-external-library-path+=${flex_home}/frameworks/libs/air,${dependencies}"/>
             <!--<arg value="-debug=${debug}"/>-->
             <arg value="-define=CONFIG::debug,${debug}"/>
         </java>
