@@ -25,7 +25,7 @@
     <property name="flex_sdk_url" value="http://www-us.apache.org/dist/flex/4.16.0/binaries/apache-flex-sdk-4.16.0-bin.zip"/>
     <property name="flex_sdk_path" location="${user.home}/.m2/repository/org/apache"/>
     <property name="flex_home" location="${user.home}/.m2/repository/org/apache/flex-sdk-4.16.0"/>
-    <property name="air_sdk_url" value="http://airdownload.adobe.com/air/win/download/${target-player}.0/AdobeAIRSDK.zip"/>
+    <property name="air_sdk_url" value="https://airdownload.adobe.com/air/win/download/${target-player}.0/AdobeAIRSDK.zip"/>
     <property name="air_sdk_path" location="${user.home}/.m2/repository/org/apache"/>
     <property name="air_home" location="${user.home}/.m2/repository/org/apache/air-${target-player}"/>
     <property name="flexunit" location="${user.home}/.m2/repository/org/apache/flexunit/${flexunit.version}"/>
