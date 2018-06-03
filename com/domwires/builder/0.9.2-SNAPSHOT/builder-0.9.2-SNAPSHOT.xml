@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<project name="domwires-builder" basedir="" default="package_swc">
+
+    <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="${user.home}/.m2/repository/ant-contrib/ant-contrib/1.0b2/ant-contrib-1.0b2.jar"/>
+
+    <property environment="env."/>
+    <property name="FLASH_PLAYER_EXE" location="${env.FLASH_PLAYER_EXE}"/>
+    <property name="FLASH_IDE_EXE" location="${env.FLASH_IDE_EXE}"/>
+
+    <property name="flexunit.version" value="4.2.0"/>
+
+    <property name="flashDep" value="${user.home}/.m2/repository/com/crazyfm/tools/flashDep/0.1.0/flashDep-0.1.0.jar"/>
+
+    <!--<property name="sftp-path-suffix" value=""/>-->
+    <property name="src" value="${basedir}/src"/>
+    <property name="main_class" value="${src}/StartUp.as"/>
+    <property name="out" value="${basedir}/out"/>
+    <property name="deploy.dir" location="dist"/>
+    <property name="doc" value="${out}/doc"/>
+    <property name="swc" value="${out}/swc"/>
+    <property name="swf" value="${out}/swf"/>
+    <property name="debug" value="false"/>
+    <property name="pom" value="pom.xml"/>
+    <property name="local_dependencies" value=""/>
+    <property name="air_sdk_path" value="${user.home}/.m2/repository/com/adobe"/>
+    <property name="air_sdk_url" value="https://airdownload.adobe.com/air/win/download/${target-player}.0/AIRSDK_Compiler.zip"/>
+    <property name="air_home" location="${air_sdk_path}/air-${target-player}"/>
+    <property name="flexunit" location="${user.home}/.m2/repository/org/apache/flexunit/${flexunit.version}"/>
+    <!--<property name="maven.deploy.repo" value="https://raw.github.com/CrazyFlasher/maven-repo/master"/>-->
+
+    <target name="prepare-air_sdk" depends="check-air-sdk-folder" unless="air_sdk_folder.present">
+        <taskdef resource="flexTasks.tasks" classpath="${air_home}/ant/lib/flexTasks.jar"/>
+        <antcall target="resolve-air_sdk"/>
+    </target>
+    <target name="resolve-air_sdk" depends="download-air-sdk,unpack-air-sdk"/>
+    <target name="download-air-sdk">
+        <get src="${air_sdk_url}" dest="${air_sdk_path}/air-${target-player}.zip" skipexisting="true"/>
+    </target>
+    <target name="unpack-air-sdk" depends="check-air-sdk-folder" unless="air_sdk_folder.present">
+        <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="${user.home}/.m2/repository/ant-contrib/ant-contrib/1.0b2/ant-contrib-1.0b2.jar"/>
+        <trycatch reference="exception_ref">
+            <try>
+                <unzip src="${air_sdk_path}/air-${target-player}.zip" dest="${air_home}"/>
+            </try>
+            <catch>
+                <echo>Cannot uzip file! Re-downloading...</echo>
+                <delete file="${air_sdk_path}/air-${target-player}.zip"/>
+                <antcall target="prepare-air_sdk"/>
+            </catch>
+        </trycatch>
+    </target>
+    <target name="check-air-sdk-folder">
+        <available file="${air_home}" type="dir" property="air_sdk_folder.present"/>
+    </target>
+
+    <taskdef resource="flexTasks.tasks" classpath="${air_home}/ant/lib/flexTasks.jar"/>
+    <taskdef resource="flexUnitTasks.tasks" classpath="${flexunit}/flexUnitTasks-${flexunit.version}-20140410.jar"/>
+
+    <target name="package_swc" depends="clean,swc,test,asdoc,maven-install"/>
+    <target name="asdoc" depends="build_dep_paths">
+        <delete dir="${doc}"/>
+        <java jar="${air_home}/lib/legacy/asdoc.jar" dir="${air_home}/frameworks" fork="true" failonerror="true">
+            <arg value="+flexlib=${air_home}/frameworks"/>
+            <arg value="-swf-version=${swf-version}"/>
+            <arg value="-doc-sources=${src}"/>
+            <arg value="-strict=false"/>
+            <arg value="-theme="/>                               <!-- shut down weird ASC2 error -->
+            <arg value="-compiler.fonts.local-fonts-snapshot="/> <!-- shut down weird ASC2 error -->
+            <arg value="-output=${doc}"/>
+            <!--${air_home}/frameworks/libs/player/20.0"-->
+            <arg value="-external-library-path+=${air_home}/frameworks/libs/air,${dependencies}"/>
+        </java>
+        <zip destfile="${swc}/${swc_name}" update="true">
+            <zipfileset dir="${doc}" prefix="docs">
+                <!--<include name="*.*"/>-->
+                <exclude name="ASDoc_Config_Base.xml"/>
+                <exclude name="Overviews_Base.xml"/>
+            </zipfileset>
+        </zip>
+        <!--<delete dir="${doc}"/>-->
+    </target>
+    <target name="swf" depends="prepare-air_sdk,build_dep_paths">
+        <java jar="${air_home}/lib/mxmlc-cli.jar" dir="${air_home}/frameworks" fork="true" failonerror="true">
+            <arg value="${main_class}"/>
+            <arg value="-source-path+=${src}"/>
+            <arg value="-swf-version=${swf-version}"/>
+            <arg value="-library-path+=${dependencies},${local_dependencies}"/>
+            <arg value="-external-library-path+=${air_home}/frameworks/libs/air"/>
+            <arg value="-output=${out}/${swf_name}"/>
+            <arg value="-keep-as3-metadata+=Autowired"/>
+            <arg value="-keep-as3-metadata+=PostConstruct"/>
+            <arg value="-keep-as3-metadata+=PostInject"/>
+            <arg value="-debug=${debug}"/>
+        </java>
+    </target>
+    <target name="swc" depends="prepare-air_sdk,build_dep_paths">
+        <!--<dirset id="sources" dir="${src}">-->
+        <!--<include name="**/*" />-->
+        <!--</dirset>-->
+        <!--<pathconvert property="classes" pathsep="," refid="sources"/>-->
+        <java jar="${air_home}/lib/compc-cli.jar" dir="${air_home}/frameworks" fork="true" failonerror="true">
+            <arg value="-strict=false"/>
+            <arg value="-source-path=${src}"/>
+            <arg value="-include-sources=${src}"/>
+            <arg value="-output=${swc}/${swc_name}"/>
+            <arg value="-external-library-path+=${air_home}/frameworks/libs/air,${dependencies}"/>
+            <!--<arg value="-debug=${debug}"/>-->
+            <arg value="-define=CONFIG::debug,${debug}"/>
+        </java>
+    </target>
+    <target name="build_dep_paths">
+        <java jar="${flashDep}" fork="true" failonerror="true">
+            <arg value="${deploy.dir}/"/>
+            <arg value="${pom}.dependencies"/>
+        </java>
+        <property file="${deploy.dir}/dependencies.properties"/>
+    </target>
+    <target name="test" depends="build_dep_paths,prepare-flexunit">
+        <mkdir dir="${out}/tests/report/html"/>
+        <java jar="${air_home}/lib/mxmlc-cli.jar" dir="${air_home}/frameworks" fork="true" failonerror="true">
+            <arg value="${basedir}/tests/TestSuite.as"/>
+            <arg value="-source-path+=${src}"/>
+            <arg value="-swf-version=${swf-version}"/>
+            <arg value="-library-path+=${flexunit},${dependencies}"/>
+            <arg value="-output=${out}/tests/TestRunner.swf"/>
+            <arg value="-external-library-path+=${air_home}/frameworks/libs/air,${dependencies}"/>
+            <arg value="-keep-as3-metadata+=Autowired"/>
+            <arg value="-keep-as3-metadata+=PostConstruct"/>
+            <arg value="-keep-as3-metadata+=PostInject"/>
+            <arg value="-debug=false"/>
+        </java>
+        <flexunit
+                command="${FLASH_PLAYER_EXE}"
+                player="flash"
+                swf="${out}/tests/TestRunner.swf"
+                toDir="${out}/tests/report"
+                haltonfailure="false"
+                verbose="true"
+                localTrusted="true"
+                failureproperty="flexunit.failure"
+        />
+        <junitreport todir="${out}/tests/report">
+            <fileset dir="${out}/tests/report">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${out}/tests/report/html"/>
+        </junitreport>
+        <fail if="flexunit.failure" message="Unit test(s) failed. See reports!"/>
+    </target>
+    <target name="check-flexunit">
+        <available file="${flexunit}/flexUnitTasks-${flexunit.version}-20140410.jar" property="flexunit.present"/>
+    </target>
+    <target name="prepare-flexunit" depends="check-flexunit" unless="flexunit.present">
+        <unzip src="${flexunit}/flexunit-${flexunit.version}.zip" dest="${flexunit}"/>
+        <taskdef resource="flexUnitTasks.tasks" classpath="${flexunit}/flexUnitTasks-${flexunit.version}-20140410.jar"/>
+    </target>
+    <target name="prepare" depends="-init-ooo">
+        <delete dir="${deploy.dir}"/>
+        <mavendep pom="${pom}"/>
+    </target>
+    <target name="clean">
+        <delete dir="${out}"/>
+    </target>
+
+    <!--//////////////////////////////////////////////////////////////////////////////////////-->
+
+    <!-- Set maven.deploy.repo to deploy to a local maven repo:
+        ant -Dmaven.deploy.repo=file:///path/to/local/repo maven-deploy -->
+    <target name="maven-deploy" depends="prepare">
+        <mavendeploy file="${swc}/${swc_name}" pom="${pom}"/>
+    </target>
+    <target name="maven-install" depends="prepare">
+        <maveninstall file="${swc}/${swc_name}" pom="${pom}"/>
+    </target>
+</project>
