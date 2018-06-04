@@ -36,12 +36,9 @@
     <target name="resolve-air_sdk" depends="download-air-sdk,unpack-air-sdk"/>
     <target name="download-air-sdk">
         <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="${user.home}/.m2/repository/ant-contrib/ant-contrib/1.0b2/ant-contrib-1.0b2.jar"/>
-        <mkdir dir="${user.home}/.m2"/>
-        <mkdir dir="${user.home}/.m2/com"/>
-        <mkdir dir="${user.home}/.m2/com/adobe"/>
         <trycatch reference="exception_ref">
             <try>
-                <get src="${air_sdk_url}" dest="${air_sdk_path}/air-${target-player}.zip" skipexisting="true"/>
+                <get src="${air_sdk_url}" dest="${air_sdk_path}/air-${target-player}.zip" skipexisting="true" verbose="true"/>
             </try>
             <catch>
                 <echo>Cannot download AIR SDK! Trying alternative hosting...</echo>
