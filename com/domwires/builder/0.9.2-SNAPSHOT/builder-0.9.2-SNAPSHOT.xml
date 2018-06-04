@@ -24,7 +24,7 @@
     <property name="local_dependencies" value=""/>
     <property name="air_sdk_path" value="${user.home}/.m2/repository/com/adobe"/>
     <property name="air_sdk_url" value="https://airdownload.adobe.com/air/win/download/${target-player}.0/AIRSDK_Compiler.zip"/>
-    <property name="air_sdk_url_alt" value="http://188.166.108.195/sdk/air/${target-player}/AIRSDK.zip"/>
+    <property name="air_sdk_url_alt" value="http://188.166.108.195/sdk/air/${target-player}.0/AIRSDK.zip"/>
     <property name="air_home" location="${air_sdk_path}/air-${target-player}"/>
     <property name="flexunit" location="${user.home}/.m2/repository/org/apache/flexunit/${flexunit.version}"/>
     <!--<property name="maven.deploy.repo" value="https://raw.github.com/CrazyFlasher/maven-repo/master"/>-->
@@ -38,11 +38,11 @@
         <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="${user.home}/.m2/repository/ant-contrib/ant-contrib/1.0b2/ant-contrib-1.0b2.jar"/>
         <trycatch reference="exception_ref">
             <try>
-                <get src="${air_sdk_url}" dest="${air_sdk_path}/air${target-player}.zip" skipexisting="true"/>
+                <get src="${air_sdk_url}" dest="${air_sdk_path}/air-${target-player}.zip" skipexisting="true"/>
             </try>
             <catch>
                 <echo>Cannot download AIR SDK! Trying alternative hosting...</echo>
-                <get src="${air_sdk_url_alt}" dest="${air_sdk_path}/air${target-player}"/>
+                <get src="${air_sdk_url_alt}" dest="${air_sdk_path}/air-${target-player}.zip" skipexisting="true"/>
             </catch>
         </trycatch>
     </target>
@@ -50,11 +50,11 @@
         <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="${user.home}/.m2/repository/ant-contrib/ant-contrib/1.0b2/ant-contrib-1.0b2.jar"/>
         <trycatch reference="exception_ref">
             <try>
-                <unzip src="${air_sdk_path}/air${target-player}" dest="${air_home}"/>
+                <unzip src="${air_sdk_path}/air-${target-player}.zip" dest="${air_home}"/>
             </try>
             <catch>
                 <echo>Cannot uzip file! Re-downloading...</echo>
-                <delete file="${air_sdk_path}/air${target-player}.zip"/>
+                <delete file="${air_sdk_path}/air-${target-player}.zip"/>
                 <antcall target="prepare-air_sdk"/>
             </catch>
         </trycatch>
