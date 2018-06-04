@@ -24,7 +24,7 @@
     <property name="local_dependencies" value=""/>
     <property name="air_sdk_path" value="${user.home}/.m2/repository/com/adobe"/>
     <property name="air_sdk_url" value="https://airdownload.adobe.com/air/win/download/${target-player}.0/AIRSDK_Compiler.zip"/>
-    <property name="air_sdk_url_alt" value="http://188.166.108.195/sdk/air/${target-player}/AIRSDK_Compiler.zip"/>
+    <property name="air_sdk_url_alt" value="http://188.166.108.195/sdk/air/${target-player}/AIRSDK.zip"/>
     <property name="air_home" location="${air_sdk_path}/air-${target-player}"/>
     <property name="flexunit" location="${user.home}/.m2/repository/org/apache/flexunit/${flexunit.version}"/>
     <!--<property name="maven.deploy.repo" value="https://raw.github.com/CrazyFlasher/maven-repo/master"/>-->
@@ -42,7 +42,7 @@
             </try>
             <catch>
                 <echo>Cannot download AIR SDK! Trying alternative hosting...</echo>
-                <get src="${air_sdk_url_alt}" dest="${air_sdk_path}/air-${target-player}.zip" skipexisting="true"/>
+                <get src="${air_sdk_url_alt}" dest="${air_sdk_path}" skipexisting="true"/>
             </catch>
         </trycatch>
     </target>
