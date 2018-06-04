@@ -38,11 +38,11 @@
         <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="${user.home}/.m2/repository/ant-contrib/ant-contrib/1.0b2/ant-contrib-1.0b2.jar"/>
         <trycatch reference="exception_ref">
             <try>
-                <get src="${air_sdk_url}" dest="${air_sdk_path}/air-${target-player}.zip" skipexisting="true"/>
+                <get src="${air_sdk_url}" dest="${air_sdk_path}/air${target-player}.zip" skipexisting="true"/>
             </try>
             <catch>
                 <echo>Cannot download AIR SDK! Trying alternative hosting...</echo>
-                <get src="${air_sdk_url_alt}" dest="${air_sdk_path}"/>
+                <get src="${air_sdk_url_alt}" dest="${air_sdk_path}/air${target-player}.zip"/>
             </catch>
         </trycatch>
     </target>
@@ -50,11 +50,11 @@
         <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="${user.home}/.m2/repository/ant-contrib/ant-contrib/1.0b2/ant-contrib-1.0b2.jar"/>
         <trycatch reference="exception_ref">
             <try>
-                <unzip src="${air_sdk_path}/AIRSDK.zip" dest="${air_home}"/>
+                <unzip src="${air_sdk_path}/air${target-player}.zip" dest="${air_home}"/>
             </try>
             <catch>
                 <echo>Cannot uzip file! Re-downloading...</echo>
-                <delete file="${air_sdk_path}/air-${target-player}.zip"/>
+                <delete file="${air_sdk_path}/air${target-player}.zip"/>
                 <antcall target="prepare-air_sdk"/>
             </catch>
         </trycatch>
